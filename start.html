@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI 설문</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #questions {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+        }
+        .option {
+            margin: 0 10px;
+        }
+        .submit-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="questions">
+        <!-- 외향성(E) vs. 내향성(I) -->
+        <div class="question" id="question1">
+            <h2>질문 1. 파티나 사교 모임에서 에너지를 얻습니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q1" value="E"> 예. 사람들과 함께하는 것이 혼자보다 좋습니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q1" value="I"> 아니요. 혼자 있을때 에너지를 얻습니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question2" style="display: none;">
+            <h2>질문 2. 조용한 환경에서 에너지를 얻습니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q2" value="I"> 예. 조용한 환경은 휴식하기 좋은 환경입니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q2" value="E"> 아니요. 씨끌벅적한 환경에 에너지를 얻습니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question3" style="display: none;">
+            <h2>질문 3. 다양한 사람들과 어울리는 것을 좋아합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q3" value="E"> 예. 친구는 많을수록 좋습니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q3" value="I"> 아니요. 친구는 적지만 깊게 사귀는 것이 좋습니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question4" style="display: none;">
+            <h2>질문 4. 혼자 시간을 보내는 것을 좋아합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q4" value="I"> 예. 혼자 있고 싶을 때가 많습니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q4" value="E"> 아니요. 친구들과 함께 시간을 보내고 싶습니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question5" style="display: none;">
+            <h2>질문 5. 자신의 생각을 말로 표현하는 것이 쉽습니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q5" value="E"> 예. 내 생각을 다른 사람과 나누는 것을 즐깁니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q5" value="I"> 아니요. 내면에 간직하는 편입니다.
+                </div>
+            </div>
+        </div>
+        <!-- 감각(S) vs. 직관(N) -->
+        <div class="question" id="question6" style="display: none;">
+            <h2>질문 6. 구체적인 사실과 정보를 중시합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q6" value="S"> 예. 객관적이고 정확한 사실만이 중요합니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q6" value="N"> 아니요. 주관적인 부분도 필요합니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question7" style="display: none;">
+            <h2>질문 7. 미래의 가능성과 아이디어를 중시합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q7" value="N"> 예. 미래의 제가 궁금합니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q7" value="S"> 아니요. 생각하지 않습니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question8" style="display: none;">
+            <h2>질문 8. 현재의 경험에 집중합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q8" value="S"> 예. 지금 순간순간이 중요합니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q8" value="N"> 아니요. 현실적인 경험보다 저의 생각이 더 중요합니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question9" style="display: none;">
+            <h2>질문 9. 미래의 잠재력에 대해 생각합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q9" value="N"> 예. 나중을 생각할 때가 많습니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q9" value="S"> 아니요. 나중은 잘 생각하지 않습니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question10" style="display: none;">
+            <h2>질문 10. 실제적이고 현실적인 접근을 선호합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q10" value="S"> 예. 현실적인 접근이 중요합니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q10" value="N"> 아니요. 상상력과 가능성을 중요시합니다.
+                </div>
+            </div>
+        </div>
+        <!-- 사고(T) vs. 감정(F) -->
+        <div class="question" id="question11" style="display: none;">
+            <h2>질문 11. 논리적이고 객관적으로 결정을 내립니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q11" value="T"> 예. 급한 상황에서도 침착하게 결정합니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q11" value="F"> 아니요. 급한 상황에는 직관을 이용합니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question12" style="display: none;">
+            <h2>질문 12. 사람들의 감정과 관계를 고려하여 결정을 내립니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q12" value="F"> 예. 다른 사람의 감정을 고려하여 말합니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q12" value="T"> 아니요. 진실이 더 중요합니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question13" style="display: none;">
+            <h2>질문 13. 분석적이고 이성적인 접근을 선호합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q13" value="T"> 예. 사실에 가까운것을 선호합니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q13" value="F"> 아니요. 느낌대로 하는것이 더 좋습니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question14" style="display: none;">
+            <h2>질문 14. 따뜻하고 공감하는 접근을 선호합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q14" value="F"> 예. 따뜻한 말이 위로가 됩니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q14" value="T"> 아니요. 사실대로 말해주는 것이 도움이 됩니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question15" style="display: none;">
+            <h2>질문 15. 공정성과 일관성을 중시합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q15" value="T"> 예. 공정하고 일관적인 것이 중요합니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q15" value="F"> 아니요. 감정에 따른 유연한 대처가 중요합니다.
+                </div>
+            </div>
+        </div>
+        <!-- 판단(J) vs. 인식(P) -->
+        <div class="question" id="question16" style="display: none;">
+            <h2>질문 16. 계획적이고 조직적인 생활을 선호합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q16" value="J"> 예. 조직적인 문화가 일의 능률에 도움이 됩니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q16" value="P"> 아니요. 편안하고 유연한 환경이 도움이 됩니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question17" style="display: none;">
+            <h2>질문 17. 일정을 미리 세우는 것을 좋아합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q17" value="J"> 예. 계획을 자주 세우는 편입니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q17" value="P"> 아니요. 즉흥적인 편입니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question18" style="display: none;">
+            <h2>질문 18. 중요한 상황에서 결단을 내리는 편입니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q18" value="J"> 예. 어느쪽이로든 결정을 내리고 봅니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q18" value="P"> 아니요. 꼭 어느 하나로만 하지 않아도 됩니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question19" style="display: none;">
+            <h2>질문 19. 체계적이고 규칙적인 것을 선호합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q19" value="J"> 예. 규칙적인 삶을 살아가는 것이 좋습니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q19" value="P"> 아니요. 그때그때 다르게 살아갑니다.
+                </div>
+            </div>
+        </div>
+        <div class="question" id="question20" style="display: none;">
+            <h2>질문 20. 즉각적인 상황에 따른 변화를 선호합니까?</h2>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" name="q20" value="J"> 예. 즉각적인 상황에 따라 맞추어 활동합니다.
+                </div>
+                <div class="option">
+                    <input type="radio" name="q20" value="P"> 아니요. 정해진 규칙에 따르는 것이 중요합니다.
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+    <button class="submit-button" onclick="nextQuestion()">다음으로</button>
+    
+    <script>
+        function calculateMBTI() {
+        let E_count = 0;
+        let I_count = 0;
+        let S_count = 0;
+        let N_count = 0;
+        let T_count = 0;
+        let F_count = 0;
+        let P_count = 0;
+        let J_count = 0;
+    
+        for (let i = 1; i <= totalQuestions; i++) {
+            const questionType = Math.ceil(i / 5);
+            const selectedValue = document.querySelector(`input[name=q${i}]:checked`).value;
+    
+            switch (questionType) {
+                case 1:
+                    (selectedValue === 'E') ? E_count++ : I_count++;
+                    break;
+                case 2:
+                    (selectedValue === 'S') ? S_count++ : N_count++;
+                    break;
+                case 3:
+                    (selectedValue === 'T') ? T_count++ : F_count++;
+                    break;
+                case 4:
+                    (selectedValue === 'P') ? P_count++ : J_count++;
+                    break;
+            }
+        }
+    
+        // 각각의 성향에 대한 계산
+        const E_I = (E_count > I_count) ? 'E' : 'I';
+        const S_N = (S_count > N_count) ? 'S' : 'N';
+        const T_F = (T_count > F_count) ? 'T' : 'F';
+        const P_J = (P_count > J_count) ? 'P' : 'J';
+    
+        // MBTI 유형 결정
+        const mbti = `${E_I}${S_N}${T_F}${P_J}`;
+        
+        alert('당신의 MBTI 유형은 ' + mbti + '입니다.');
+        window.location.href = `${mbti}.html`; // 결과 페이지로 이동
+    }
+        let currentQuestion = 1;
+        const totalQuestions = 20; // 전체 질문 개수
+
+    
+        function nextQuestion() {
+            const selectedOption = document.querySelector(`input[name=q${currentQuestion}]:checked`);
+            if (selectedOption === null) {
+                alert("선택하지 않았습니다.");
+                return;
+            }
+
+            if (currentQuestion < totalQuestions) {
+                document.getElementById(`question${currentQuestion}`).style.display = "none";
+                currentQuestion++;
+                document.getElementById(`question${currentQuestion}`).style.display = "block";
+            } else {
+                calculateMBTI();
+            }
+        }
+    </script>
+</body>
+</html>
