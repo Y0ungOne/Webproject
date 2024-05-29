@@ -8,7 +8,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'TTLaundryGothic';
         }
         header {
             background-color: #333;
@@ -17,19 +17,34 @@
             text-align: center;
         }
         section {
-            background-image: url('zoo.jpg');
-            background-size: cover;
-            background-position: center;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
+            position: relative;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('사진/zoo.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;            
+            z-index: -1;
+        }
+        section > div {
+            z-index: 1;
+            position: relative;
             color: white;
         }
         h1 {
             font-size: 3rem;
             margin-bottom: 20px;
+            font-family: 'TTLaundryGothicB';
         }
         .start-button {
             padding: 30px 40px;
@@ -57,12 +72,11 @@
             font-weight: 400;
             font-style: normal;
         }
-        h1{
-            font-family: 'TTLaundryGothicB';
+        h2{
+            font-size: 1.5rem;
+            text-shadow: -1px 0px grey, 0px 1px grey, 1px 0px grey, 0px -1px grey;
         }
-        div{
-            font-family: 'TTLaundryGothic';
-        }
+        
     </style>
 </head>
 <body>
@@ -70,8 +84,10 @@
         <h1>나는 어떤 동물일까?</h1>
     </header>
     <section>
+        <div class="background"></div>
         <div>
             <h2>심리 테스트 시작하기</h2>
+            <br>
             <a href="start.html" class="start-button">알아보러 고고!</a>
         </div>
     </section>

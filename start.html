@@ -1,34 +1,81 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나는 어떤 동물일까?</title>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="script.js"></script>
+    </head>
+    
     <style>
+        /* 공통 스타일 */
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
             background-color: #f0f0f0;
         }
+
         #questions {
             text-align: center;
+            margin: auto;
+            width: 80%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            /* 왼쪽 끝에서부터 아닌 가운데 정렬을 위해 추가 */
+            transform: translate(-50%, -50%);
+            /* 수직, 수평 가운데 정렬을 위해 변경 */
         }
+
+
+
+
         .question {
             margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            transition: transform 0.5s ease-in-out;
         }
+
         .options {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
+
         .option {
-            margin: 0 10px;
+            margin: 10px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
         }
-        .submit-button {   /*버튼위치 글씨 밑으로 내려갔음 좋겠음*/
+
+        .option:hover {
+            background-color: #f0f0f0;
+            border-color: #aaa;
+        }
+
+        .selected {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+            color: white;
+        }
+
+        .submit-button-container {
+            text-align: center;
             margin-top: 20px;
+            /* 위쪽 여백 추가 */
+        }
+
+
+        .submit-button {
             padding: 10px 20px;
             font-size: 1.2rem;
             background-color: #4CAF50;
@@ -37,367 +84,323 @@
             cursor: pointer;
             border-radius: 5px;
             transition: background-color 0.3s;
-            font-family: 'KCC-HanbitB';
+            /* hover 효과를 위한 전환 효과 */
         }
+
         .submit-button:hover {
             background-color: #45a049;
         }
-        @font-face {
-            font-family: 'KCC-Hanbit';
-            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
+
+        h2 {
+            font-weight: bold;
         }
-        @font-face {
-            font-family: 'KCC-HanbitB';
-            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
-            font-weight: 700;
-            font-style: normal;
+
+        label {
+            display: inline;
         }
-       
-        h2{
-            font-family: 'KCC-HanbitB';
-        }
-        .option{
-            font-family: 'KCC-Hanbit';
+
+        /* 미디어 쿼리 */
+        @media only screen and (max-width: 600px) {
+            .question {
+                padding: 10px;
+            }
         }
     </style>
 </head>
+
 <body>
-    <!--질문 순서가 뒤죽박죽인게 나을 수도..? 질문 더 추가 하는거 어때?-->
-    <!--라벨 속성 줘서 글씨 클릭해도 라디오버튼 눌리게끔 다 설정바꿔놨고 질문도 다 다시 바꿔놨어-->
     <div id="questions">
         <!-- 외향성(E) vs. 내향성(I) -->
+        <!-- 질문 1 -->
         <div class="question" id="question1">
             <h2>질문 1. 여행 중에 길을 잃었을 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="1" type="radio" name="q1" value="E">
-                    <label for="1"> a. 근처 가게나 사람에게 물어본다.</label>
-                </div>
-                <div class="option">
-                    <input id="2" type="radio" name="q1" value="I"> 
-                    <label for="2">b.  주변을 둘러보며 새로운 길을 찾아본다.</label>
-                </div>
+                <button id="1" class="option" onclick="selectOption(1)">a. 근처 가게나 사람에게 물어본다.</button>
+                <button id="2" class="option" onclick="selectOption(2)">b. 주변을 둘러보며 새로운 길을 찾아본다.</button>
             </div>
         </div>
+        <!-- 질문 2 -->
         <div class="question" id="question2" style="display: none;">
             <h2>질문 2. 큰 파티에 초대받았을 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="3" type="radio" name="q2" value="I">
-                    <label for="3"> a.  몇몇 사람들과 깊이 있는 대화를 나눈다.</label>
-                </div>
-                <div class="option">
-                    <input id="4" type="radio" name="q2" value="E"> 
-                    <label for="4">b. 여러 사람들과 가볍게 대화를 나누며 돌아다닌다.</label>
-                </div>
+                <button id="3" class="option" onclick="selectOption(3)">a. 몇몇 사람들과 깊이 있는 대화를 나눈다.</button>
+                <button id="4" class="option" onclick="selectOption(4)">b. 여러 사람들과 가볍게 대화를 나누며 돌아다닌다.</button>
             </div>
         </div>
+        <!-- 질문 3 -->
         <div class="question" id="question3" style="display: none;">
             <h2>질문 3. 새로운 사람을 만났을 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="5" type="radio" name="q3" value="E"> 
-                    <label for="5">a. 다양한 주제로 가볍게 대화를 나눈다</label>
-                </div>
-                <div class="option">
-                    <input id="6" type="radio" name="q3" value="I"> 
-                    <label for="6">b. 상대방의 관심사에 대해 깊이 있는 질문을 한다.</label>
-                </div>
+                <button id="5" class="option" onclick="selectOption(5)">a. 다양한 주제로 가볍게 대화를 나눈다.</button>
+                <button id="6" class="option" onclick="selectOption(6)">b. 상대방의 관심사에 대해 깊이 있는 질문을 한다.</button>
             </div>
         </div>
+        <!-- 질문 4 -->
         <div class="question" id="question4" style="display: none;">
             <h2>질문 4. 혼자 있는 시간이 주어졌을 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="7" type="radio" name="q4" value="I"> 
-                    <label for="7">a. 책을 읽거나 영화를 보는 등 개인적인 시간을 보낸다.</label>
-                </div>
-                <div class="option">
-                    <input id="8" type="radio" name="q4" value="E"> 
-                    <label for="8">b. 사람들과 연락하며 시간을 보낸다.</label>
-                </div>
+                <button id="7" class="option" onclick="selectOption(7)">a. 책을 읽거나 영화를 보는 등 개인적인 시간을 보낸다.</button>
+                <button id="8" class="option" onclick="selectOption(8)">b. 사람들과 연락하며 시간을 보낸다.</button>
             </div>
         </div>
+        <!-- 질문 5 -->
         <div class="question" id="question5" style="display: none;">
             <h2>질문 5. 새로운 직장에서 첫날, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="9" type="radio" name="q5" value="E">
-                    <label for="9"a>a. 동료들에게 인사하고 친해지려고 노력한다.</label>
-                </div>
-                <div class="option">
-                    <input id="10" type="radio" name="q5" value="I"> 
-                    <label for="10">b. 조용히 업무를 파악하며 천천히 적응한다.</label>
-                </div>
+                <button id="9" class="option" onclick="selectOption(9)">a. 동료들에게 인사하고 친해지려고 노력한다.</button>
+                <button id="10" class="option" onclick="selectOption(10)">b. 조용히 업무를 파악하며 천천히 적응한다.</button>
             </div>
         </div>
         <!-- 감각(S) vs. 직관(N) -->
+        <!-- 질문 6 -->
         <div class="question" id="question6" style="display: none;">
             <h2>질문 6. 새로운 식당에 갔을 때, 메뉴를 고른다면 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="11" type="radio" name="q6" value="S"> 
-                    <label for="11"a>a. 추천 메뉴나 많이 팔리는 음식을 선택한다.</label>
-                </div>
-                <div class="option">
-                    <input  id="12" type="radio" name="q6" value="N"> 
-                    <label for="12">b. 모험 삼아 새로운 요리를 시도해 본다.</label>
-
-                </div>
+                <button id="11" class="option" onclick="selectOption(11)">a. 추천 메뉴나 많이 팔리는 음식을 선택한다.</button>
+                <button id="12" class="option" onclick="selectOption(12)">b. 모험 삼아 새로운 요리를 시도해 본다.</button>
             </div>
         </div>
+
+        <!-- 질문 7 -->
         <div class="question" id="question7" style="display: none;">
             <h2>질문 7. 새로운 기술을 배운다면, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="13" type="radio" name="q7" value="N">
-                    <label for="13">a. 실습과 경험을 통해 직접 배운다.</label>
-                </div>
-                <div class="option">
-                    <input id="14" type="radio" name="q7" value="S"> 
-                    <label for="14">b. 체계적인 교육 과정을 통해 배운다.</label>
-                </div>
+                <button id="13" class="option" onclick="selectOption(13)">a. 실습과 경험을 통해 직접 배운다.</button>
+                <button id="14" class="option" onclick="selectOption(14)">b. 체계적인 교육 과정을 통해 배운다.</button>
             </div>
         </div>
+
+        <!-- 질문 8 -->
         <div class="question" id="question8" style="display: none;">
             <h2>질문 8. 책을 볼 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="15" type="radio" name="q8" value="S"> 
-                    <label for="15">a. 리뷰와 추천을 꼼꼼히 읽고 선택한다.</label>
-                </div>
-                <div class="option">
-                    <input id="16" type="radio" name="q8" value="N"> 
-                    <label for="16">b. 표지나 제목을 보고 직감적으로 선택한다.</label>
-                </div>
+                <button id="15" class="option" onclick="selectOption(15)">a. 리뷰와 추천을 꼼꼼히 읽고 선택한다.</button>
+                <button id="16" class="option" onclick="selectOption(16)">b. 표지나 제목을 보고 직감적으로 선택한다.</button>
             </div>
         </div>
+
+        <!-- 질문 9 -->
         <div class="question" id="question9" style="display: none;">
             <h2>질문 9. 새로운 취미를 시작할 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="17" type="radio" name="q9" value="N"> 
-                    <label for="17">a. 취미 관련 동영상이나 블로그를 본다.</label>
-                </div>
-                <div class="option">
-                    <input id="18" type="radio" name="q9" value="S"> 
-                    <label for="18">b. 관련 자료와 가이드를 찾아본다.</label>
-                </div>
+                <button id="17" class="option" onclick="selectOption(17)">a. 취미 관련 동영상이나 블로그를 본다.</button>
+                <button id="18" class="option" onclick="selectOption(18)">b. 관련 자료와 가이드를 찾아본다.</button>
             </div>
         </div>
+
+        <!-- 질문 10 -->
         <div class="question" id="question10" style="display: none;">
             <h2>질문 10. 중요한 발표를 앞두고 있을 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="19" type="radio" name="q10" value="S"> 
-                    <label for="19">a. 발표 자료를 철저히 준비하고 연습한다.</label>
-                </div>
-                <div class="option">
-                    <input id="20" type="radio" name="q10" value="N"> 
-                    <label for="20">b. 요점 포인트만 정리하고 자연스럽게 발표한다.</label>
-                </div>
+                <button id="19" class="option" onclick="selectOption(19)">a. 발표 자료를 철저히 준비하고 연습한다.</button>
+                <button id="20" class="option" onclick="selectOption(20)">b. 요점 포인트만 정리하고 자연스럽게 발표한다.</button>
             </div>
         </div>
+
         <!-- 사고(T) vs. 감정(F) -->
+        <!-- 질문 11 -->
         <div class="question" id="question11" style="display: none;">
             <h2>질문 11. 회의에서 의견이 충돌할 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="21" type="radio" name="q11" value="T"> 
-                    <label for="21">a. 논리적으로 자신의 의견을 설명한다.</label>
-                </div>
-                <div class="option">
-                    <input id="22" type="radio" name="q11" value="F"> 
-                    <label for="22">b. 다양한 의견을 수용하고 조화를 이루려 한다.</label>
-                </div>
+                <button id="21" class="option" onclick="selectOption(21)">a. 논리적으로 자신의 의견을 설명한다.</button>
+                <button id="22" class="option" onclick="selectOption(22)">b. 다양한 의견을 수용하고 조화를 이루려 한다.</button>
             </div>
         </div>
+
+        <!-- 질문 12 -->
         <div class="question" id="question12" style="display: none;">
             <h2>질문 12. 친구와의 갈등 생길 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="23" type="radio" name="q12" value="F"> 
-                    <label for="23">a. 감정적으로 접근하여 서로 이해하려 한다.</label>
-                </div>
-                <div class="option">
-                    <input id="24" type="radio" name="q12" value="T">
-                    <label for="24">b. 문제의 원인을 분석하고 해결책을 찾는다.</label>
-                </div>
+                <button id="23" class="option" onclick="selectOption(23)">a. 감정적으로 접근하여 서로 이해하려 한다.</button>
+                <button id="24" class="option" onclick="selectOption(24)">b. 문제의 원인을 분석하고 해결책을 찾는다.</button>
             </div>
         </div>
+
+        <!-- 질문 13 -->
         <div class="question" id="question13" style="display: none;">
             <h2>질문 13. 업무에서 실수했을 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="25" type="radio" name="q13" value="T"> 
-                    <label for="25">a. 사실에 가까운것을 선호합니다.</label>
-                </div>
-                <div class="option">
-                    <input id="26" type="radio" name="q13" value="F">
-                    <label for="26">b. 문제를 분석하고 개선 방법을 찾는다.</label>
-                </div>
+                <button id="25" class="option" onclick="selectOption(25)">a. 실수를 잊고 나아간다.</button>
+                <button id="26" class="option" onclick="selectOption(26)">b. 문제를 분석하고 개선 방법을 찾는다.</button>
             </div>
         </div>
+
+        <!-- 질문 14 -->
         <div class="question" id="question14" style="display: none;">
             <h2>질문 14. 업무 성과를 평가할 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="27" type="radio" name="q14" value="F"> 
-                    <label for="27">a. 팀워크와 협력의 질을 중시한다.</label>
-                </div>
-                <div class="option">
-                    <input id="28" type="radio" name="q14" value="T"> 
-                    <label for="28">b. 구체적인 목표 달성 여부와 성과 지표를 중시한다.</label>
-                </div>
+                <button id="27" class="option" onclick="selectOption(27)">a. 팀워크와 협력의 질을 중시한다.</button>
+                <button id="28" class="option" onclick="selectOption(28)">b. 구체적인 목표 달성 여부와 성과 지표를 중시한다.</button>
             </div>
         </div>
+
+        <!-- 질문 15 -->
         <div class="question" id="question15" style="display: none;">
             <h2>질문 15. 직장에서 새로운 아이디어를 평가할 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="29" type="radio" name="q15" value="T"> 
-                    <label for="29">a. 아이디어의 실현 가능성과 논리적 근거를 중시한다.</label>
-                </div>
-                <div class="option">
-                    <input id="30" type="radio" name="q15" value="F"> 
-                    <label for="30">b. 아이디어가 팀 분위기와 감정에 미치는 영향을 고려한다.</label>
-                </div>
+                <button id="29" class="option" onclick="selectOption(29)">a. 아이디어의 실현 가능성과 논리적 근거를 중시한다.</button>
+                <button id="30" class="option" onclick="selectOption(30)">b. 아이디어가 팀 분위기와 감정에 미치는 영향을 고려한다.</button>
             </div>
         </div>
         <!-- 판단(J) vs. 인식(P) -->
+        <!-- 질문 16 -->
         <div class="question" id="question16" style="display: none;">
             <h2>질문 16. 쇼핑몰에서 여러 가지 선택지가 있을 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="31" type="radio" name="q16" value="J"> 
-                    <label for="31">a. 꼼꼼히 비교하고 신중히 선택한다.</label>
-                </div>
-                <div class="option">
-                    <input id="32" type="radio" name="q16" value="P"> 
-                    <label for="32">b. 눈에 띄는 것을 바로 선택한다</label>
-                </div>
+                <button id="31" class="option" onclick="selectOption(31)">a. 꼼꼼히 비교하고 신중히 선택한다.</button>
+                <button id="32" class="option" onclick="selectOption(32)">b. 눈에 띄는 것을 바로 선택한다.</button>
             </div>
         </div>
+
+        <!-- 질문 17 -->
         <div class="question" id="question17" style="display: none;">
             <h2>질문 17. 출장 중에 계획에 없던 여유 시간이 생겼을 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="33" type="radio" name="q17" value="J"> 
-                    <label for="33">a. 미리 조사한 장소를 방문한다.</label>
-                </div>
-                <div class="option">
-                    <input id="34" type="radio" name="q17" value="P"> 
-                    <label for="34">b. 주변을 탐험하며 즉흥적으로 시간을 보낸다</label>.
-                </div>
+                <button id="33" class="option" onclick="selectOption(33)">a. 미리 조사한 장소를 방문한다.</button>
+                <button id="34" class="option" onclick="selectOption(34)">b. 주변을 탐험하며 즉흥적으로 시간을 보낸다.</button>
             </div>
         </div>
+
+        <!-- 질문 18 -->
         <div class="question" id="question18" style="display: none;">
             <h2>질문 18. 중요한 상황에서 결정을 해야할 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="35" type="radio" name="q18" value="J"> 
-                    <label for="35">a. 어느쪽이로든 한가지의 결정을 내린다.</label>
-                </div>
-                <div class="option">
-                    <input id="36" type="radio" name="q18" value="P"> 
-                    <label for="36">b. 꼭 어느 하나로만 결정을 하지 않거나 쉽게 내리지 못한다.</label>
-                </div>
+                <button id="35" class="option" onclick="selectOption(35)">a. 어느쪽이로든 한가지의 결정을 내린다.</button>
+                <button id="36" class="option" onclick="selectOption(36)">b. 꼭 어느 하나로만 결정을 하지 않거나 쉽게 내리지 못한다.</button>
             </div>
         </div>
+
+        <!-- 질문 19 -->
         <div class="question" id="question19" style="display: none;">
             <h2>질문 19. 새로운 도시를 방문했을 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="37" type="radio" name="q19" value="J"> 
-                    <label for="37">a. 사전에 조사한 명소를 방문한다.</label>
-                </div>
-                <div class="option">
-                    <input id="38" type="radio" name="q19" value="P"> 
-                    <label for="38">b. 발이 닿는 곳 부터 둘러본다.</label>
-                </div>
+                <button id="37" class="option" onclick="selectOption(37)">a. 사전에 조사한 명소를 방문한다.</button>
+                <button id="38" class="option" onclick="selectOption(38)">b. 발이 닿는 곳부터 둘러본다.</button>
             </div>
         </div>
+
+        <!-- 질문 20 -->
         <div class="question" id="question20" style="display: none;">
             <h2>질문 20. 여행지에서 예상치 못한 일이 생겼을 때, 나는?</h2>
             <div class="options">
-                <div class="option">
-                    <input id="39" type="radio" name="q20" value="J"> 
-                    <label for="39">a. 이미 정해둔 대안을 찾고 계획을 변경한다.</label>
-                </div>
-                <div class="option">
-                    <input id="40" type="radio" name="q20" value="P"> 
-                    <label for="40">b. 상황에 맞춰 유연하게 대처한다.</label>
-                </div>
+                <button id="39" class="option" onclick="selectOption(39)">a. 이미 정해둔 대안을 찾고 계획을 변경한다.</button>
+                <button id="40" class="option" onclick="selectOption(40)">b. 상황에 맞춰 유연하게 대처한다.</button>
             </div>
-        </div> 
+        </div>
+        <div class="submit-button-container">
+            <button id="prevButton" onclick="previousQuestion()">이전으로</button>
+            <button id="nextButton" onclick="nextQuestion()">다음으로</button>
+        </div>
     </div>
-</div>
-    <button class="submit-button" onclick="nextQuestion()">다음으로</button>
     
     <script>
-        function calculateMBTI() {
-        let E_count = 0;
-        let I_count = 0;
-        let S_count = 0;
-        let N_count = 0;
-        let T_count = 0;
-        let F_count = 0;
-        let P_count = 0;
-        let J_count = 0;
-    
-        for (let i = 1; i <= totalQuestions; i++) {
-            const questionType = Math.ceil(i / 5);
-            const selectedValue = document.querySelector(`input[name=q${i}]:checked`).value;
-    
-            switch (questionType) {
-                case 1:
-                    (selectedValue === 'E') ? E_count++ : I_count++;
-                    break;
-                case 2:
-                    (selectedValue === 'S') ? S_count++ : N_count++;
-                    break;
-                case 3:
-                    (selectedValue === 'T') ? T_count++ : F_count++;
-                    break;
-                case 4:
-                    (selectedValue === 'P') ? P_count++ : J_count++;
-                    break;
-            }
+
+$(document).ready(function() {
+    let E_count = 0;
+    let I_count = 0;
+    let S_count = 0;
+    let N_count = 0;
+    let T_count = 0;
+    let F_count = 0;
+    let P_count = 0;
+    let J_count = 0;
+
+    let currentQuestion = 1;
+    const totalQuestions = 20;
+
+    function selectOption(optionId) {
+        const currentQuestionOptions = $(`#question${currentQuestion} .option`);
+        currentQuestionOptions.removeClass('selected');
+
+        $(`#${optionId}`).addClass('selected');
+
+        if (optionId === '2' || optionId === '3' || optionId === '6' || optionId === '7' || optionId === '10') {
+            I_count++;
+        } else if (optionId === '1' || optionId === '4' || optionId === '5' || optionId === '8' || optionId === '9') {
+            E_count++;
+        } else if (optionId === '11' || optionId === '14' || optionId === '15' || optionId === '18' || optionId === '19') {
+            S_count++;
+        } else if (optionId === '12' || optionId === '13' || optionId === '16' || optionId === '17' || optionId === '20') {
+            N_count++;
+        } else if (optionId === '21' || optionId === '24' || optionId === '25' || optionId === '28' || optionId === '29') {
+            T_count++;
+        } else if (optionId === '22' || optionId === '23' || optionId === '26' || optionId === '27' || optionId === '30') {
+            F_count++;
+        } else if (optionId === '31' || optionId === '33' || optionId === '35' || optionId === '37' || optionId === '39') {
+            J_count++;
+        } else if (optionId === '32' || optionId === '34' || optionId === '36' || optionId === '38' || optionId === '40') {
+            P_count++;
         }
-    
-        // 각각의 성향에 대한 계산
+    }
+
+    function previousQuestion() {
+        if (currentQuestion > 1) {
+            $(`#question${currentQuestion}`).hide();
+            currentQuestion--;
+            $(`#question${currentQuestion}`).show();
+        }
+    }
+
+    function nextQuestion() {
+        const selectedOption = $(`#question${currentQuestion} .option.selected`);
+        if (!selectedOption.length) {
+            alert("선택하지 않았습니다.");
+            return;
+        }
+
+        if (currentQuestion < totalQuestions) {
+            $(`#question${currentQuestion}`).hide();
+            currentQuestion++;
+            $(`#question${currentQuestion}`).show();
+        } else {
+            calculateMBTI();
+        }
+    }
+
+    function calculateMBTI() {
         const E_I = (E_count > I_count) ? 'E' : 'I';
         const S_N = (S_count > N_count) ? 'S' : 'N';
         const T_F = (T_count > F_count) ? 'T' : 'F';
         const P_J = (P_count > J_count) ? 'P' : 'J';
-    
-        // MBTI 유형 결정
+
         const mbti = `${E_I}${S_N}${T_F}${P_J}`;
-        
-        alert('당신의 MBTI 유형은 ' + mbti + '입니다.');//결과를 알려주는게 아니라 로딩창을 억지로 만들어서 과연 나는 어떤 동물이...? 이런거 있음 좋을 듯
-        window.location.href = `${mbti}.html`; // 결과 페이지로 이동
+        const mbtiPages = {
+            'ISTJ': '코끼리.html',
+            'ISFJ': '골든리트리버.html',
+            'INFJ': '늑대.html',
+            'INTJ': '올빼미.html',
+            'ISTP': '표범.html',
+            'ISFP': '여우.html',
+            'INFP': '고양이.html',
+            'INTP': '옥토퍼스.html',
+            'ESTP': '매.html',
+            'ESFP': '돌고래.html',
+            'ENFP': '유니콘.html',
+            'ENTP': '까마귀.html',
+            'ESTJ': '개미.html',
+            'ESFJ': '비버.html',
+            'ENFJ': '코끼리새.html',
+            'ENTJ': '사자.html'
+        };
+
+        window.location.href = mbtiPages[mbti] || '#';
     }
-        let currentQuestion = 1;
-        const totalQuestions = 20; // 전체 질문 개수
 
-    
-        function nextQuestion() {
-            const selectedOption = document.querySelector(`input[name=q${currentQuestion}]:checked`);
-            if (selectedOption === null) {
-                alert("선택하지 않았습니다.");
-                return;
-            }
+    $('.option').on('click', function() {
+        const optionId = $(this).attr('id');
+        selectOption(optionId);
+    });
 
-            if (currentQuestion < totalQuestions) {
-                document.getElementById(`question${currentQuestion}`).style.display = "none";
-                currentQuestion++;
-                document.getElementById(`question${currentQuestion}`).style.display = "block";
-            } else {
-                calculateMBTI();
-            }
-        }
+    $('#prevButton').on('click', function() {
+        previousQuestion();
+    });
+
+    $('#nextButton').on('click', function() {
+        nextQuestion();
+    });
+});
+
     </script>
 </body>
+
 </html>
