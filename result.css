@@ -5,143 +5,174 @@ body {
     font-family: 'KCC-Hanbit';
     font-size: 16px;
 }
-h2, h3 {
+
+h2,
+h3 {
     font-family: 'TTLaundryGothicB';
-    margin: 0; 
+    margin: 0;
 }
+
 h1 {
     font-family: 'TTLaundryGothicB';
-    font-size: 50px; 
+    font-size: 50px;
 }
+
 h2 {
     font-size: 40px;
 }
+
 h3 {
     font-size: 20px;
 }
+
 header {
     color: black;
     padding: 10px 0;
-    font-size: 28px; 
-     
+    font-size: 28px;
+    border-bottom: 1px solid #ccc;
 }
-section, footer {
+
+section,
+footer {
     padding: 20px;
     box-sizing: border-box;
 }
+
 .main-image {
     max-width: 70%;
     height: auto;
     border-radius: 10px;
 }
+
 img {
     border-radius: 10px;
 }
+
 .content-box {
-    background-color: white; 
-    padding: 20px; 
-    border-radius: 10px; 
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-    margin: 20px auto; 
-    width: 80%; 
-    max-width: 840px; 
-    display: block; 
-    text-align: left; 
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
+    display: block;
+    text-align: left;
 }
+
 .compare {
-    margin-top: 20px; 
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    
+    align-items: center;
 }
+
 .compare img {
     width: 100px;
-    height: 100px; 
-    margin-bottom: 10px; 
+    height: 100px;
+    margin-bottom: 10px;
 }
+
 .image-container {
     display: flex;
-    justify-content: center;  
-    align-items: center;  
-    gap: 10px;  
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .image-container img {
-    max-width: 45%;  
+    max-width: 45%;
     height: auto;
     border-radius: 10px;
 }
+
 .fontect {
     font-size: 30px;
 }
+
 p {
-    margin-bottom: 20px; 
-    line-height: 1.6; 
+    margin-bottom: 20px;
+    line-height: 1.6;
 }
-.highlight_M{
-    background-color: yellow; 
+
+.highlight_M {
+    background-color: yellow;
 }
-.highlight_R{
-    background-color: rgba(255, 69, 0,0.7); 
-   
+
+.highlight_R {
+    background-color: rgba(255, 69, 0, 0.7);
 }
-.highlight_Title{
+
+.highlight_Title {
     background-color: rgba(159, 153, 227, 0.8);
 }
+
 .underline {
     position: relative;
 }
+
 .underline::after {
     content: "";
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -2px; /* Adjust this value to set the distance between text and underline */
-    height: 1.5px; /* Thickness of the underline */
-    background-color: black; /* Color of the underline */
+    bottom: -2px;
+    /* Adjust this value to set the distance between text and underline */
+    height: 1.5px;
+    /* Thickness of the underline */
+    background-color: black;
+    /* Color of the underline */
 }
+
 @media (min-width: 600px) {
     .main-image {
-        max-width: 50%; 
+        max-width: 50%;
     }
+
     .compare {
-        flex-direction: column; 
+        flex-direction: column;
         align-items: center;
         text-align: center;
-        margin: 0 auto; 
+        margin: 0 auto;
     }
+
     .compare img {
         width: 150px;
         height: 150px;
-        margin-right: 0; 
-        margin-bottom: 10px; 
+        margin-right: 0;
+        margin-bottom: 10px;
     }
 }
+
 @font-face {
     font-family: 'TTLaundryGothicB';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'KCC-Hanbit';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
+
 @media (max-width: 599px) {
     h1 {
         font-size: 30px;
     }
+
     header {
         font-size: 24px;
     }
+
     p {
-        font-size: 14px; 
+        font-size: 14px;
     }
+
     .fontect {
-        font-size: 24px; 
+        font-size: 24px;
     }
 }
 
@@ -175,7 +206,7 @@ aside a.active {
 aside {
     position: fixed;
     top: 0;
-    left: -250px;
+    left: -300px;
     /* 초기에는 화면 밖에 위치하도록 설정 */
     width: 250px;
     height: 100%;
@@ -194,8 +225,8 @@ aside.open {
 }
 
 aside.closed {
-    left: -250px;
-    /* 사이드 바가 왼쪽으로 이동하여 사라지도록 설정 */
+    left: -300px;
+    /* 사이드 바가 왼쪽으로 이동하여 완전히 사라지도록 설정 */
     opacity: 0;
     /* 사이드 바가 투명해지도록 설정 */
 }

@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나는 어떤 동물일까?</title>
+
     <head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="script.js"></script>
     </head>
-    
+
     <style>
         /* 공통 스타일 */
         body {
@@ -19,6 +20,7 @@
             background-color: #f0f0f0;
         }
 
+        /* 페이지 중앙 정렬 */
         #questions {
             text-align: center;
             margin: auto;
@@ -26,23 +28,22 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            /* 왼쪽 끝에서부터 아닌 가운데 정렬을 위해 추가 */
             transform: translate(-50%, -50%);
-            /* 수직, 수평 가운데 정렬을 위해 변경 */
         }
 
+        /* 질문 스타일 */
+.question {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    transition: transform 0.5s ease-in-out;
+    font-family: 'TTLaundryGothicB', Arial, sans-serif; /* 글꼴 적용 */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 그림자 적용 */
+}
 
-
-
-        .question {
-            margin-bottom: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border: 2px solid #ccc;
-            border-radius: 15px;
-            transition: transform 0.5s ease-in-out;
-        }
-
+        /* 옵션 스타일 */
         .options {
             display: flex;
             flex-direction: column;
@@ -55,11 +56,8 @@
             border-radius: 10px;
             padding: 10px 20px;
             cursor: pointer;
-        }
-
-        .option:hover {
-            background-color: #f0f0f0;
-            border-color: #aaa;
+            font-family: 'TTLaundryGothicB', Arial, sans-serif;
+            /* 글꼴 적용 */
         }
 
         .selected {
@@ -68,28 +66,34 @@
             color: white;
         }
 
+        /* 제출 버튼 스타일 */
         .submit-button-container {
             text-align: center;
             margin-top: 20px;
-            /* 위쪽 여백 추가 */
         }
 
-
-        .submit-button {
+        .submit-button,
+        #prevButton,
+        #nextButton {
             padding: 10px 20px;
             font-size: 1.2rem;
             background-color: #4CAF50;
-            border: none;
+            border: 2px solid #4CAF50;
             color: white;
             cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.3s;
-            /* hover 효과를 위한 전환 효과 */
+            transition: background-color 0.3s, border-color 0.3s;
+            font-family: 'TTLaundryGothicB', Arial, sans-serif;
+            /* 글꼴 적용 */
         }
 
-        .submit-button:hover {
+        .submit-button:hover,
+        #prevButton:hover,
+        #nextButton:hover {
             background-color: #45a049;
+            border-color: #45a049;
         }
+
 
         h2 {
             font-weight: bold;
@@ -100,9 +104,56 @@
         }
 
         /* 미디어 쿼리 */
-        @media only screen and (max-width: 600px) {
+        @media only screen and (max-width: 768px) {
+            /*태블릿*/
             .question {
                 padding: 10px;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+            /* 모바일 */
+            .question {
+                padding: 10px;
+            }
+        }
+
+
+        .content-box {
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        @media (min-width: 600px) {
+            .main-image {
+                max-width: 50%;
+            }
+        }
+
+        @font-face {
+            font-family: 'TTLaundryGothicB';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'KCC-Hanbit';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @media (max-width: 599px) {
+            h1 {
+                font-size: 24px;
             }
         }
     </style>
@@ -292,113 +343,113 @@
             <button id="nextButton" onclick="nextQuestion()">다음으로</button>
         </div>
     </div>
-    
+
     <script>
 
-$(document).ready(function() {
-    let E_count = 0;
-    let I_count = 0;
-    let S_count = 0;
-    let N_count = 0;
-    let T_count = 0;
-    let F_count = 0;
-    let P_count = 0;
-    let J_count = 0;
+        $(document).ready(function () {
+            let E_count = 0;
+            let I_count = 0;
+            let S_count = 0;
+            let N_count = 0;
+            let T_count = 0;
+            let F_count = 0;
+            let P_count = 0;
+            let J_count = 0;
 
-    let currentQuestion = 1;
-    const totalQuestions = 20;
+            let currentQuestion = 1;
+            const totalQuestions = 20;
 
-    function selectOption(optionId) {
-        const currentQuestionOptions = $(`#question${currentQuestion} .option`);
-        currentQuestionOptions.removeClass('selected');
+            function selectOption(optionId) {
+                const currentQuestionOptions = $(`#question${currentQuestion} .option`);
+                currentQuestionOptions.removeClass('selected');
 
-        $(`#${optionId}`).addClass('selected');
+                $(`#${optionId}`).addClass('selected');
 
-        if (optionId === '2' || optionId === '3' || optionId === '6' || optionId === '7' || optionId === '10') {
-            I_count++;
-        } else if (optionId === '1' || optionId === '4' || optionId === '5' || optionId === '8' || optionId === '9') {
-            E_count++;
-        } else if (optionId === '11' || optionId === '14' || optionId === '15' || optionId === '18' || optionId === '19') {
-            S_count++;
-        } else if (optionId === '12' || optionId === '13' || optionId === '16' || optionId === '17' || optionId === '20') {
-            N_count++;
-        } else if (optionId === '21' || optionId === '24' || optionId === '25' || optionId === '28' || optionId === '29') {
-            T_count++;
-        } else if (optionId === '22' || optionId === '23' || optionId === '26' || optionId === '27' || optionId === '30') {
-            F_count++;
-        } else if (optionId === '31' || optionId === '33' || optionId === '35' || optionId === '37' || optionId === '39') {
-            J_count++;
-        } else if (optionId === '32' || optionId === '34' || optionId === '36' || optionId === '38' || optionId === '40') {
-            P_count++;
-        }
-    }
+                if (optionId === '2' || optionId === '3' || optionId === '6' || optionId === '7' || optionId === '10') {
+                    I_count++;
+                } else if (optionId === '1' || optionId === '4' || optionId === '5' || optionId === '8' || optionId === '9') {
+                    E_count++;
+                } else if (optionId === '11' || optionId === '14' || optionId === '15' || optionId === '18' || optionId === '19') {
+                    S_count++;
+                } else if (optionId === '12' || optionId === '13' || optionId === '16' || optionId === '17' || optionId === '20') {
+                    N_count++;
+                } else if (optionId === '21' || optionId === '24' || optionId === '25' || optionId === '28' || optionId === '29') {
+                    T_count++;
+                } else if (optionId === '22' || optionId === '23' || optionId === '26' || optionId === '27' || optionId === '30') {
+                    F_count++;
+                } else if (optionId === '31' || optionId === '33' || optionId === '35' || optionId === '37' || optionId === '39') {
+                    J_count++;
+                } else if (optionId === '32' || optionId === '34' || optionId === '36' || optionId === '38' || optionId === '40') {
+                    P_count++;
+                }
+            }
 
-    function previousQuestion() {
-        if (currentQuestion > 1) {
-            $(`#question${currentQuestion}`).hide();
-            currentQuestion--;
-            $(`#question${currentQuestion}`).show();
-        }
-    }
+            function previousQuestion() {
+                if (currentQuestion > 1) {
+                    $(`#question${currentQuestion}`).hide();
+                    currentQuestion--;
+                    $(`#question${currentQuestion}`).show();
+                }
+            }
 
-    function nextQuestion() {
-        const selectedOption = $(`#question${currentQuestion} .option.selected`);
-        if (!selectedOption.length) {
-            alert("선택하지 않았습니다.");
-            return;
-        }
+            function nextQuestion() {
+                const selectedOption = $(`#question${currentQuestion} .option.selected`);
+                if (!selectedOption.length) {
+                    alert("선택하지 않았습니다.");
+                    return;
+                }
 
-        if (currentQuestion < totalQuestions) {
-            $(`#question${currentQuestion}`).hide();
-            currentQuestion++;
-            $(`#question${currentQuestion}`).show();
-        } else {
-            calculateMBTI();
-        }
-    }
+                if (currentQuestion < totalQuestions) {
+                    $(`#question${currentQuestion}`).hide();
+                    currentQuestion++;
+                    $(`#question${currentQuestion}`).show();
+                } else {
+                    calculateMBTI();
+                }
+            }
 
-    function calculateMBTI() {
-        const E_I = (E_count > I_count) ? 'E' : 'I';
-        const S_N = (S_count > N_count) ? 'S' : 'N';
-        const T_F = (T_count > F_count) ? 'T' : 'F';
-        const P_J = (P_count > J_count) ? 'P' : 'J';
+            function calculateMBTI() {
+                const E_I = (E_count > I_count) ? 'E' : 'I';
+                const S_N = (S_count > N_count) ? 'S' : 'N';
+                const T_F = (T_count > F_count) ? 'T' : 'F';
+                const P_J = (P_count > J_count) ? 'P' : 'J';
 
-        const mbti = `${E_I}${S_N}${T_F}${P_J}`;
-        const mbtiPages = {
-            'ISTJ': '코끼리.html',
-            'ISFJ': '골든리트리버.html',
-            'INFJ': '늑대.html',
-            'INTJ': '올빼미.html',
-            'ISTP': '표범.html',
-            'ISFP': '여우.html',
-            'INFP': '고양이.html',
-            'INTP': '옥토퍼스.html',
-            'ESTP': '매.html',
-            'ESFP': '돌고래.html',
-            'ENFP': '유니콘.html',
-            'ENTP': '까마귀.html',
-            'ESTJ': '개미.html',
-            'ESFJ': '비버.html',
-            'ENFJ': '코끼리새.html',
-            'ENTJ': '사자.html'
-        };
+                const mbti = `${E_I}${S_N}${T_F}${P_J}`;
+                const mbtiPages = {
+                    'ISTJ': '코끼리.html',
+                    'ISFJ': '골든리트리버.html',
+                    'INFJ': '늑대.html',
+                    'INTJ': '올빼미.html',
+                    'ISTP': '표범.html',
+                    'ISFP': '여우.html',
+                    'INFP': '고양이.html',
+                    'INTP': '옥토퍼스.html',
+                    'ESTP': '매.html',
+                    'ESFP': '돌고래.html',
+                    'ENFP': '유니콘.html',
+                    'ENTP': '까마귀.html',
+                    'ESTJ': '개미.html',
+                    'ESFJ': '비버.html',
+                    'ENFJ': '코끼리새.html',
+                    'ENTJ': '사자.html'
+                };
 
-        window.location.href = mbtiPages[mbti] || '#';
-    }
+                window.location.href = mbtiPages[mbti] || '#';
+            }
 
-    $('.option').on('click', function() {
-        const optionId = $(this).attr('id');
-        selectOption(optionId);
-    });
+            $('.option').on('click', function () {
+                const optionId = $(this).attr('id');
+                selectOption(optionId);
+            });
 
-    $('#prevButton').on('click', function() {
-        previousQuestion();
-    });
+            $('#prevButton').on('click', function () {
+                previousQuestion();
+            });
 
-    $('#nextButton').on('click', function() {
-        nextQuestion();
-    });
-});
+            $('#nextButton').on('click', function () {
+                nextQuestion();
+            });
+        });
 
     </script>
 </body>
