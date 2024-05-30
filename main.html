@@ -37,11 +37,13 @@
         main {
             text-align: center;
             color: white;
-            height: 100%; /* 추가: 높이를 화면 높이의 80%로 설정 */
+            height: 100%;
+            /* 추가: 높이를 화면 높이의 80%로 설정 */
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative; /* 추가: 이미지 컨테이너의 position을 정상화하기 위해 부모 요소의 position을 설정합니다. */
+            position: relative;
+            /* 추가: 이미지 컨테이너의 position을 정상화하기 위해 부모 요소의 position을 설정합니다. */
         }
 
         h1 {
@@ -131,7 +133,10 @@
         }
 
         @media (max-width: 480px) {
-
+            h1 {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
             /* 모바일 */
         }
     </style>

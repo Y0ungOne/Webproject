@@ -8,7 +8,6 @@
 
     <head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="script.js"></script>
     </head>
 
     <style>
@@ -32,16 +31,19 @@
         }
 
         /* 질문 스타일 */
-.question {
-    margin-bottom: 20px;
-    padding: 20px;
-    background-color: #fff;
-    border: 2px solid #ccc;
-    border-radius: 15px;
-    transition: transform 0.5s ease-in-out;
-    font-family: 'TTLaundryGothicB', Arial, sans-serif; /* 글꼴 적용 */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 그림자 적용 */
-}
+        .question {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            transition: transform 0.5s ease-in-out;
+            font-family: 'TTLaundryGothicB', Arial, sans-serif;
+            /* 글꼴 적용 */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            /* 그림자 적용 */
+            font-size: 18px;
+        }
 
         /* 옵션 스타일 */
         .options {
@@ -57,7 +59,13 @@
             padding: 10px 20px;
             cursor: pointer;
             font-family: 'TTLaundryGothicB', Arial, sans-serif;
-            /* 글꼴 적용 */
+            width: 80%;
+            max-width: 400px;
+            /* 최대 너비 지정 */
+            box-sizing: border-box;
+            /* 패딩 포함 너비 계산 */
+            text-align: center;
+            /* 텍스트 가운데 정렬 */
         }
 
         .selected {
@@ -104,18 +112,18 @@
         }
 
         /* 미디어 쿼리 */
-        @media only screen and (max-width: 768px) {
-            /*태블릿*/
-            .question {
-                padding: 10px;
-            }
-        }
 
 
         @media (max-width: 480px) {
+
             /* 모바일 */
             .question {
                 padding: 10px;
+                font-size: 12px;
+            }
+
+            .option {
+                font-size: 10px;
             }
         }
 
@@ -156,11 +164,36 @@
                 font-size: 24px;
             }
         }
+
+        /* 프로그레스 바 컨테이너 스타일 */
+        #progress-container {
+            width: 80%;
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px auto;
+            /* 중앙 정렬 */
+        }
+
+        /* 실제 프로그레스 바 스타일 */
+        #progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #4CAF50;
+            border-radius: 10px;
+            transition: width 0.3s ease-in-out;
+        }
     </style>
 </head>
 
 <body>
     <div id="questions">
+
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
         <!-- 외향성(E) vs. 내향성(I) -->
         <!-- 질문 1 -->
         <div class="question" id="question1">
@@ -345,7 +378,6 @@
     </div>
 
     <script>
-
         $(document).ready(function () {
             let E_count = 0;
             let I_count = 0;
@@ -448,6 +480,48 @@
 
             $('#nextButton').on('click', function () {
                 nextQuestion();
+            });
+        });
+        $(document).ready(function () {
+            // 질문 개수
+            const totalQuestions = 20;
+
+            // 현재 질문 번호 (1부터 시작)
+            let currentQuestion = 1;
+
+            // 프로그레스 바 업데이트 함수
+            function updateProgressBar() {
+                const progressBar = document.getElementById('progress-bar');
+                const progress = ((currentQuestion - 1) / (totalQuestions - 1)) * 100; // 질문 번호를 인덱스로 사용하므로 1을 빼고 전체 질문 수에서 1을 빼줍니다.
+                progressBar.style.width = progress + '%';
+            }
+
+            // 질문 변경 함수 (이 함수는 실제 질문 변경 로직에 맞게 수정해야 합니다)
+            function goToQuestion(questionNumber) {
+                currentQuestion = questionNumber;
+                updateProgressBar();
+            }
+
+            // 초기 프로그레스 바 상태 설정
+            updateProgressBar();
+
+            // 예시: 다음 버튼 클릭 시 질문 변경
+            document.getElementById('nextButton').addEventListener('click', () => {
+                const selectedOption = $(`#question${currentQuestion} .option.selected`);
+                if (!selectedOption.length) {
+                    return;
+                } else if (currentQuestion < totalQuestions) {
+                    currentQuestion++;
+                    goToQuestion(currentQuestion);
+                }
+            });
+
+            // 예시: 이전 버튼 클릭 시 질문 변경
+            document.getElementById('prevButton').addEventListener('click', () => {
+                if (currentQuestion > 1) {
+                    currentQuestion--;
+                    goToQuestion(currentQuestion);
+                }
             });
         });
 
