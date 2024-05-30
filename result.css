@@ -144,3 +144,94 @@ p {
         font-size: 24px; 
     }
 }
+
+/* 페이지 컨텐츠와 겹치지 않도록 마진 조정 */
+section {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+
+/* 추가한 스타일 */
+aside {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* 사이드 바 내부 링크 스타일 */
+aside a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+/* 현재 페이지 링크 스타일 */
+aside a.active {
+    background-color: #ddd;
+}
+
+/* 사이드 바 스타일 */
+aside {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    /* 초기에는 화면 밖에 위치하도록 설정 */
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    z-index: 11;
+    transition: left 0.3s ease, opacity 0.3s ease;
+    /* 사이드 바가 열리고 닫힐 때 애니메이션 적용 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+aside.open {
+    left: 0;
+    /* 사이드 바가 열릴 때 화면 안쪽으로 이동 */
+    opacity: 1;
+    /* 사이드 바가 완전히 보이도록 설정 */
+}
+
+aside.closed {
+    left: -250px;
+    /* 사이드 바가 왼쪽으로 이동하여 사라지도록 설정 */
+    opacity: 0;
+    /* 사이드 바가 투명해지도록 설정 */
+}
+
+/* 햄버거 아이콘 스타일 */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 12;
+}
+
+.menu-toggle .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
+    transition: background-color 0.3s;
+}
+
+.menu-toggle.open .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.open .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
