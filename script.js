@@ -36,3 +36,5 @@
             sidebar.classList.remove('open');
             blurOverlay.classList.remove('visible');
         });
+        
+       

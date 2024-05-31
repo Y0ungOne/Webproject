@@ -125,6 +125,18 @@ p {
     background-color: black;
     /* Color of the underline */
 }
+#playMusic h1 {
+    cursor: pointer;
+    color: black; /* 기본 글씨 색상 */
+    transition: color 0.3s ease; /* 색상 변경 애니메이션 */
+}
+
+#playMusic h1:hover {
+    color: rgb(236, 194, 201); /* 마우스 오버시 글씨 색상 */
+}
+.colorect h1:hover{
+    color: rgb(71, 58, 60);
+}
 
 @media (min-width: 600px) {
     .main-image {

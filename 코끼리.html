@@ -6,19 +6,39 @@
     <title>코끼리</title>
     <link rel="stylesheet" href="result.css">
     <script src="script.js" defer></script>
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('playMusic');
+            const audio = document.getElementById('myAudio');
+
+             header.addEventListener('click', function() {
+                if (audio.paused) {
+                 audio.play();
+                } else {
+                    audio.pause();
+                }
+            });
+        });
+        </script>
 </head>
 <body style="background-color: #eafefe;">
-    <header>
+    <header id="playMusic">
         <h1>나를 나타내는 동물은?</h1>
     </header>
+    <audio id="myAudio">
+        <source src="음악/AboveTheTreetops.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     <div class="menu-toggle" id="toggleSidebar">
         <div class="bar"></div>
         <div class="bar"></div>
         <div class="bar"></div>
     </div>
     <aside id="sidebar">
+        <br>
         <ul>
             <li><a href="main.html">처음으로 돌아가기</a></li>
+            <br>
             <li><a href="#" id="toggle_other_animals">다른 동물 보러가기</a></li>
             <ul id="other_animals_list" style="display: none;">
                 <li><a href="#">코끼리</a></li>
@@ -93,8 +113,8 @@
             <p>
                 여우는 자유롭고 독립적인 성격의 동물로, 
                 <br>때때로 교활하고 계산적인 면모를 보입니다. 
-                <br>이러한 특성은 코끼리의 <span class="underline">성실하고 신뢰 중심적인 성격과</span> <span class="highlight_R">상충</span>될수 있습니다. 
-                <br>코끼리는 여우의 <span class="underline">변덕스러움과 예측 불가능한 행동</span>을 <span class="underline">신뢰하기 어렵게 느끼며</span>, 
+                <br>이러한 특성은 코끼리의 성실하고 신뢰 중심적인 성격과 <span class="highlight_R">상충</span>될수 있습니다. 
+                <br>코끼리는 여우의 변덕스러움과 예측 불가능한 행동을 <span class="highlight_R">신뢰하기 어렵게 느끼며</span>, 
                 <br>이로 인해 두 동물 사이에 <span class="highlight_R">긴장</span>이 생길 수 있습니다.
             </p>
         </div>
@@ -107,5 +127,9 @@
             <br>이러한 환경은 그들이 스트레스를 덜 받고 장기적인 계획을 세우는 데 도움이 됩니다.</p>
         </div>
     </footer>
+    
+
+
+
 </body>
 </html>

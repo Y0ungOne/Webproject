@@ -11,15 +11,25 @@
     </head>
 
     <style>
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('사진/zoo.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6; 
+            z-index: -1; 
+        }
         /* 공통 스타일 */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
-            background-image: url('사진/zoo.jpg');
-            background-size: cover;
-            
+            overflow-x: hidden; 
         }
 
         /* 페이지 중앙 정렬 */
@@ -130,6 +140,7 @@
                 font-size: 9px;
                 padding: 10px 3px;
             }
+            
         }
 
 
@@ -193,6 +204,7 @@
 </head>
 
 <body>
+    <div id="background">
     <div id="questions">
 
         <div id="progress-container">
@@ -380,7 +392,7 @@
             <button id="prevButton" onclick="previousQuestion()">이전으로</button>
             <button id="nextButton" onclick="nextQuestion()">다음으로</button>
         </div>
-
+    </div>
     </div>
 
     <script>
