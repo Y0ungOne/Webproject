@@ -17,6 +17,9 @@
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
+            background-image: url('사진/zoo.jpg');
+            background-size: cover;
+            
         }
 
         /* 페이지 중앙 정렬 */
@@ -42,7 +45,7 @@
             /* 글꼴 적용 */
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             /* 그림자 적용 */
-            font-size: 18px;
+            font-size: 20px;
         }
 
         /* 옵션 스타일 */
@@ -60,12 +63,13 @@
             cursor: pointer;
             font-family: 'TTLaundryGothicB', Arial, sans-serif;
             width: 80%;
-            max-width: 400px;
+            max-width: 500px;
             /* 최대 너비 지정 */
             box-sizing: border-box;
             /* 패딩 포함 너비 계산 */
             text-align: center;
             /* 텍스트 가운데 정렬 */
+            font-size: 15px;
         }
 
         .selected {
@@ -375,6 +379,7 @@
             <button id="prevButton" onclick="previousQuestion()">이전으로</button>
             <button id="nextButton" onclick="nextQuestion()">다음으로</button>
         </div>
+
     </div>
 
     <script>
@@ -387,16 +392,16 @@
             let F_count = 0;
             let P_count = 0;
             let J_count = 0;
-
+    
             let currentQuestion = 1;
             const totalQuestions = 20;
-
+    
             function selectOption(optionId) {
                 const currentQuestionOptions = $(`#question${currentQuestion} .option`);
                 currentQuestionOptions.removeClass('selected');
-
+    
                 $(`#${optionId}`).addClass('selected');
-
+    
                 if (optionId === '2' || optionId === '3' || optionId === '6' || optionId === '7' || optionId === '10') {
                     I_count++;
                 } else if (optionId === '1' || optionId === '4' || optionId === '5' || optionId === '8' || optionId === '9') {
@@ -415,7 +420,7 @@
                     P_count++;
                 }
             }
-
+    
             function previousQuestion() {
                 if (currentQuestion > 1) {
                     $(`#question${currentQuestion}`).hide();
@@ -423,14 +428,14 @@
                     $(`#question${currentQuestion}`).show();
                 }
             }
-
+    
             function nextQuestion() {
                 const selectedOption = $(`#question${currentQuestion} .option.selected`);
                 if (!selectedOption.length) {
                     alert("선택하지 않았습니다.");
                     return;
                 }
-
+    
                 if (currentQuestion < totalQuestions) {
                     $(`#question${currentQuestion}`).hide();
                     currentQuestion++;
@@ -439,13 +444,13 @@
                     calculateMBTI();
                 }
             }
-
+    
             function calculateMBTI() {
                 const E_I = (E_count > I_count) ? 'E' : 'I';
                 const S_N = (S_count > N_count) ? 'S' : 'N';
                 const T_F = (T_count > F_count) ? 'T' : 'F';
                 const P_J = (P_count > J_count) ? 'P' : 'J';
-
+    
                 const mbti = `${E_I}${S_N}${T_F}${P_J}`;
                 const mbtiPages = {
                     'ISTJ': '코끼리.html',
@@ -465,46 +470,48 @@
                     'ENFJ': '코끼리새.html',
                     'ENTJ': '사자.html'
                 };
-
-                window.location.href = mbtiPages[mbti] || '#';
+    
+                const resultPage = mbtiPages[mbti] || '#';
+                window.location.href = resultPage;
             }
-
+    
             $('.option').on('click', function () {
                 const optionId = $(this).attr('id');
                 selectOption(optionId);
             });
-
+    
             $('#prevButton').on('click', function () {
                 previousQuestion();
             });
-
+    
             $('#nextButton').on('click', function () {
                 nextQuestion();
             });
         });
+        
         $(document).ready(function () {
             // 질문 개수
             const totalQuestions = 20;
-
+    
             // 현재 질문 번호 (1부터 시작)
             let currentQuestion = 1;
-
+    
             // 프로그레스 바 업데이트 함수
             function updateProgressBar() {
                 const progressBar = document.getElementById('progress-bar');
                 const progress = ((currentQuestion - 1) / (totalQuestions - 1)) * 100; // 질문 번호를 인덱스로 사용하므로 1을 빼고 전체 질문 수에서 1을 빼줍니다.
                 progressBar.style.width = progress + '%';
             }
-
+    
             // 질문 변경 함수 (이 함수는 실제 질문 변경 로직에 맞게 수정해야 합니다)
             function goToQuestion(questionNumber) {
                 currentQuestion = questionNumber;
                 updateProgressBar();
             }
-
+    
             // 초기 프로그레스 바 상태 설정
             updateProgressBar();
-
+    
             // 예시: 다음 버튼 클릭 시 질문 변경
             document.getElementById('nextButton').addEventListener('click', () => {
                 const selectedOption = $(`#question${currentQuestion} .option.selected`);
@@ -515,7 +522,7 @@
                     goToQuestion(currentQuestion);
                 }
             });
-
+    
             // 예시: 이전 버튼 클릭 시 질문 변경
             document.getElementById('prevButton').addEventListener('click', () => {
                 if (currentQuestion > 1) {
@@ -524,8 +531,9 @@
                 }
             });
         });
-
+    
     </script>
+    
 </body>
 
 </html>
