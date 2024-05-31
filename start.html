@@ -23,6 +23,13 @@
             opacity: 0.6; 
             z-index: -1; 
         }
+        /* 주 내용물을 위한 스타일 */
+        #mainContent {
+            position: relative;
+            z-index: 1; 
+            width: 100%; 
+            min-height: 100vh; 
+        }
         /* 공통 스타일 */
         body {
             font-family: Arial, sans-serif;
@@ -213,7 +220,8 @@
 </head>
 
 <body>
-    <div id="background">
+    <div id="background"></div>
+    <div id="mainContent">
     <div id="questions">
 
         <div id="progress-container">
