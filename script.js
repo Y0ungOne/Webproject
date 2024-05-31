@@ -1,4 +1,5 @@
 
+        alert("제목을 눌러보세요");
         // 사이드 바와 오버레이 요소를 선택합니다.
         const sidebar = document.getElementById('sidebar');
 

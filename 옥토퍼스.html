@@ -7,11 +7,28 @@
     <title>옥토퍼스</title>
     <link rel="stylesheet" href="result.css">
     <script src="script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.getElementById('playMusic');
+            const audio = document.getElementById('myAudio');
+
+            header.addEventListener('click', function () {
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            });
+        });
+    </script>
 </head>
 <body style="background-color: #FFE7D8;">
-    <header>
+    <header id="playMusic">
         <h1>나를 나타내는 동물은?</h1>
     </header>
+    <audio id="myAudio">
+        <source src="음악/BadGuys.mp3" type="audio/mpeg">
+    </audio>
     <div class="menu-toggle" id="toggleSidebar">
         <div class="bar"></div>
         <div class="bar"></div>
