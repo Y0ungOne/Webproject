@@ -31,7 +31,9 @@ header {
     font-size: 28px;
     
 }
-
+.colorect{
+    color: white;
+}
 section,
 footer {
     padding: 20px;
