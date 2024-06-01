@@ -31,9 +31,7 @@ header {
     font-size: 28px;
     
 }
-.colorect{
-    color: white;
-}
+
 section,
 footer {
     padding: 20px;
@@ -113,26 +111,17 @@ p {
     position: relative;
 }
 
-.underline::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -2px;
-    /* Adjust this value to set the distance between text and underline */
-    height: 1.5px;
-    /* Thickness of the underline */
-    background-color: black;
-    /* Color of the underline */
-}
 #playMusic h1 {
     cursor: pointer;
-    color: black; /* 기본 글씨 색상 */
-    transition: color 0.3s ease; /* 색상 변경 애니메이션 */
+    color: black; /
+    transition: color 0.3s ease;
 }
 
 #playMusic h1:hover {
-    color: rgb(236, 194, 201); /* 마우스 오버시 글씨 색상 */
+    color: rgb(236, 194, 201); 
+}
+.colorect{
+    color: white;
 }
 .colorect h1:hover{
     color: rgb(71, 58, 60);
